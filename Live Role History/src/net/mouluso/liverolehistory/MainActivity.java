@@ -1,27 +1,20 @@
 package net.mouluso.liverolehistory;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.View;
 
-import com.google.android.maps.MapActivity;
-
-public class MainActivity extends MapActivity {
+public class MainActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
+    
+    public void play(View v){
+    	Intent i = new Intent(this.getApplicationContext(), MapRoleActivity.class);
+    	startActivity(i);
     }
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
