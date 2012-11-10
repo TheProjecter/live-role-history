@@ -1,6 +1,6 @@
 package net.mouluso.liverolehistory.storage;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import net.mouluso.liverolehistory.model.History;
 import net.mouluso.liverolehistory.storage.constants.StorageConstants;
@@ -36,74 +36,42 @@ public class DatabaseOperations {
 	}
 	
 	
-	public List<History> getHistorys(){
-		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
-		SQLiteDatabase db = dbh.getReadableDatabase();
-		
-//		Cursor c = db.query(StorageConstants.TASK_TABLE, 
-//				new String[]{StorageConstants.ID, StorageConstants.DESCRIPTION, StorageConstants.DATE, 
-//							StorageConstants.DONE, StorageConstants.PRIORITY}, 
-//				null, null, null, null, null);
-//		
-//		Task.getTasks().clear();
-//		if(c.moveToFirst()){
-//			do{
-//				int id = c.getInt(c.getColumnIndex(StorageConstants.ID));
-//				String description = c.getString(c.getColumnIndex(StorageConstants.DESCRIPTION));
-//				String date = c.getString(c.getColumnIndex(StorageConstants.DATE));
-//				boolean done = c.getInt(c.getColumnIndex(StorageConstants.DONE)) == StorageConstants.DONE_TRUE;
-//				int priority = c.getInt(c.getColumnIndex(StorageConstants.PRIORITY));
-//				
-//				new Task(id, description, date, priority, done, false);
-//			}while(c.moveToNext());
-//		}else{
-//			db.close();
-//			dbh.close();
-//			return false;
-//		}
-//		
-//		db.close();
-//		dbh.close();
-//		return true;
-		
-		return null;
-	}
-	
-	
-	public void insertLocation(){
+	public void insertHistory(String name, String description){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
-		cv.put(StorageConstants.LATITUDE, 43333517);
-		cv.put(StorageConstants.LONGITUDE, -8410678);
-		db.insert(StorageConstants.LOCATION_TABLE, null, cv);
+		cv.put(StorageConstants.NAME, name);
+		cv.put(StorageConstants.DESCRIPTION, description);
 		
-		db.close();
-		dbh.close();
+		db.insert(StorageConstants.HISTORY_TABLE, null, cv);
 	}
 	
 	
-	
-	public GeoPoint getLocation(){
+	public ArrayList<History> getHistoryList(){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getReadableDatabase();
 		
-		Cursor c = db.query(StorageConstants.LOCATION_TABLE, 
-				new String[]{StorageConstants.LATITUDE, StorageConstants.LONGITUDE}, 
+		Cursor c = db.query(StorageConstants.HISTORY_TABLE, 
+				new String[]{StorageConstants.ID, StorageConstants.NAME, StorageConstants.DESCRIPTION}, 
 				null, null, null, null, null);
 		
+		ArrayList<History> historys = new ArrayList<History>();
+		
 		if(c.moveToFirst()){
-			int lat = c.getInt(c.getColumnIndex(StorageConstants.LATITUDE));
-			int lon = c.getInt(c.getColumnIndex(StorageConstants.LONGITUDE));
-			
-			db.close();
-			dbh.close();
-			return new GeoPoint(lat, lon);
+			do{
+				int id = c.getInt(c.getColumnIndex(StorageConstants.ID));
+				String name = c.getString(c.getColumnIndex(StorageConstants.NAME));
+				String description = c.getString(c.getColumnIndex(StorageConstants.DESCRIPTION));
+				String image = c.getString(c.getColumnIndex(StorageConstants.IMAGE));
+				historys.add(new History(id, name, description, image));
+			}while(c.moveToNext());
 		}
 		
 		db.close();
 		dbh.close();
-		return null;
+		
+		return historys;
 	}
+	
 }

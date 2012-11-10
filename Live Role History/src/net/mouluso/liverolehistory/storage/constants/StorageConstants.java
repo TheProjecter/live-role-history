@@ -15,24 +15,6 @@ public class StorageConstants {
 					LONGITUDE + " INTEGER" +");";
 	
 	
-	//----EXAMPLE
-//	public static final String TASK_TABLE = "Task";
-//	public static final String ID = "_id";
-//	public static final String DESCRIPTION = "description";
-//	public static final String DATE = "date";
-//	public static final String PRIORITY = "priority";
-//	public static final String DONE = "done";
-//	
-//	public static final String CREATE_TASK_TABLE = 
-//			"CREATE TABLE " + TASK_TABLE + "(" + 
-//					ID + " INTEGER PRIMARY KEY," + 
-//					DESCRIPTION + " TEXT NOT NULL," +
-//					DATE + " TEXT NOT NULL," +
-//					PRIORITY + " INTEGER NOT NULL," +
-//					DONE + " INTEGER NOT NULL" +
-//			");";
-	
-	
 	public static final String HISTORY_TABLE = "Historys";
 	public static final String EVENTS_TABLE = "Events";
 	public static final String TREASURE_TABLE = "Treasure";
@@ -55,6 +37,8 @@ public class StorageConstants {
 	public static final String CREATE_HISTORY_TABLE = 
 			"CREATE TABLE " + HISTORY_TABLE + "(" + 
 					ID + " INTEGER PRIMARY KEY," +
+					NAME + " TEXT NOT NULL, " +
+					IMAGE + " TEXT NOT NULL," +
 					DESCRIPTION + " TEXT NOT NULL);"
 					;
 

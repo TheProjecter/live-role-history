@@ -8,14 +8,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
+	Context context;
 	public DatabaseOpenHelper(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);
+		this.context = context;
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(StorageConstants.CREATE_LOCATION_TABLE);
+		db.execSQL(StorageConstants.CREATE_HISTORY_TABLE);
+		
+		DatabaseOperations.getInstance(context);
 
 	}
 
