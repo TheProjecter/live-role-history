@@ -36,13 +36,14 @@ public class DatabaseOperations {
 	}
 	
 	
-	public void insertHistory(String name, String description){
+	public void insertHistory(String name, String description, String image){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
 		cv.put(StorageConstants.NAME, name);
 		cv.put(StorageConstants.DESCRIPTION, description);
+		cv.put(StorageConstants.IMAGE, image);
 		
 		db.insert(StorageConstants.HISTORY_TABLE, null, cv);
 	}
