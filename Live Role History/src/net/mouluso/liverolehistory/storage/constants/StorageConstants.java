@@ -14,4 +14,23 @@ public class StorageConstants {
 					LATITUDE + " INTEGER," + 
 					LONGITUDE + " INTEGER" +");";
 	
+	
+	//----EXAMPLE
+//	public static final String TASK_TABLE = "Task";
+//	public static final String ID = "_id";
+//	public static final String DESCRIPTION = "description";
+//	public static final String DATE = "date";
+//	public static final String PRIORITY = "priority";
+//	public static final String DONE = "done";
+//	
+//	public static final String CREATE_TASK_TABLE = 
+//			"CREATE TABLE " + TASK_TABLE + "(" + 
+//					ID + " INTEGER PRIMARY KEY," + 
+//					DESCRIPTION + " TEXT NOT NULL," +
+//					DATE + " TEXT NOT NULL," +
+//					PRIORITY + " INTEGER NOT NULL," +
+//					DONE + " INTEGER NOT NULL" +
+//			");";
+	
+	
 }
