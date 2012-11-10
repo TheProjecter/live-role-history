@@ -4,11 +4,16 @@
     <string name="menu_settings">Settings</string>
     
     <string name="title_activity_main">Live Role History</string>
-   	<string name="title_activity_map">Map History</string>
+   	<string name="title_activity_map">Mapa da Historia</string>
     
-    <string name="play_button">Play</string>
+    <string name="play_button">Xogar</string>
     
-    <string name="locate_me">Me!</string>
-    <string name="check_location">Check</string>
+    <string name="locate_me">Localízame</string>
+    <string name="check_location">Comprobame</string>
+    <string name="show_hint">Recórdame</string>
+    
+    <string name="close_action">Pechar</string>
+    <string name="enter_data_action">¡Toma resposta!</string>
+    <string name="search_info">Buscar</string>
 
 </resources>

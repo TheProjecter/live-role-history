@@ -27,5 +27,69 @@
         android:layout_alignParentBottom="true"
         android:text="@string/check_location"
         android:onClick="checkLocation"/>
-
+    
+    <Button 
+        android:id="@+id/show_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/show_hint"
+        android:onClick="showHint"/>
+    
+    <RelativeLayout 
+        android:id="@+id/shadow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/shadow_map_color"
+        android:visibility="invisible">
+    
+	    <RelativeLayout 
+	        android:id="@+id/dialog_layout"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/dialog_drawable"
+	        android:layout_centerInParent="true"
+	        android:layout_margin="5dp">
+	        
+	        	<ImageView 
+	        	    android:id="@+id/icon_dialog"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:scaleType="center"
+	        	    android:layout_alignParentLeft="true"
+	        	    android:src="@drawable/me_location"/>
+	        	
+	        	<TextView 
+	        	    android:id="@+id/message_dialog"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:layout_toRightOf="@id/icon_dialog"
+	        	    android:layout_below="@id/icon_dialog"
+	        	    android:text="Patata patatola"/>
+	        	
+	        	<EditText
+	        	    android:id="@+id/message_enter_data"
+	        	    android:layout_width="match_parent"
+	        	    android:layout_height="wrap_content"
+	        	    android:layout_below="@id/message_dialog"/>
+	        	
+	        	<Button 
+	        	    android:id="@+id/action_dialog"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:layout_centerHorizontal="true"
+	        	    android:layout_below="@id/message_enter_data"
+	        	    android:onClick="doActionDialog"/>
+	        	
+	        	<Button 
+	        	    android:id="@+id/search_dialog"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:layout_alignParentRight="true"
+	        	    android:layout_below="@id/message_enter_data"
+					android:onClick="searchInfo"/>
+	        	
+	    </RelativeLayout>
+	</RelativeLayout>
 </RelativeLayout>
