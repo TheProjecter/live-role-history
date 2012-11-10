@@ -1,4 +1,6 @@
-package net.mouluso.liverolehistory.model;
+package net.mouluso.liverolehistory.model.actions;
+
+import net.mouluso.liverolehistory.model.Action;
 
 public class Timed extends Action {
 

@@ -1,6 +1,7 @@
 package net.mouluso.liverolehistory.gps;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,11 +13,15 @@ public class GPSListener implements LocationListener {
 	private Context context;
 	private GPSReadable reader;
 	
+	private static int gpsIntervalUpdate = 5 * 1000;
+	
 	public GPSListener(Context context, GPSReadable reader){
 		this.context = context;
 		locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-		//TODO mirar que coño significa esto
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+		Criteria criteria = new Criteria();
+		criteria.setPowerRequirement(Criteria.POWER_LOW);
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, gpsIntervalUpdate, 0, this);
 		this.reader = reader;
 	}
 	

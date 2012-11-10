@@ -9,5 +9,6 @@
     <string name="play_button">Play</string>
     
     <string name="locate_me">Me!</string>
+    <string name="check_location">Check</string>
 
 </resources>

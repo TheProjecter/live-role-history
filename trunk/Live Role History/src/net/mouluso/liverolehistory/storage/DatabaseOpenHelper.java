@@ -1,5 +1,6 @@
 package net.mouluso.liverolehistory.storage;
 
+import net.mouluso.liverolehistory.storage.constants.StorageConstants;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -14,7 +15,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
+		db.execSQL(StorageConstants.CREATE_LOCATION_TABLE);
 
 	}
 
