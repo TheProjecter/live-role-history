@@ -18,5 +18,14 @@
         android:layout_alignParentBottom="true"
         android:text="@string/locate_me"
         android:onClick="locateMe"/>
+        
+    <Button 
+        android:id="@+id/check_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/check_location"
+        android:onClick="checkLocation"/>
 
 </RelativeLayout>
