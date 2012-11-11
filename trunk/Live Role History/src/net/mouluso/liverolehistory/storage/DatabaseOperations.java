@@ -57,8 +57,8 @@ public class DatabaseOperations {
 		SQLiteDatabase db = dbh.getReadableDatabase();
 		
 		Cursor c = db.query(StorageConstants.HISTORY_TABLE, 
-				new String[]{StorageConstants.ID, StorageConstants.NAME, StorageConstants.DESCRIPTION}, 
-				null, null, null, null, null);
+				new String[]{StorageConstants.ID, StorageConstants.NAME, StorageConstants.DESCRIPTION, 
+				StorageConstants.IMAGE}, null, null, null, null, null);
 		
 		ArrayList<History> historys = new ArrayList<History>();
 		
