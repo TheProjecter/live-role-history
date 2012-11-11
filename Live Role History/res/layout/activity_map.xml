@@ -17,7 +17,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:text="@string/locate_me"
-        android:onClick="locateMe"/>
+        android:onClick="locateMe"
+        android:background="@drawable/button_drawable"
+	    android:textColor="@color/dialog_background_stroke_color"
+	    android:textStyle="bold"/>
         
     <Button 
         android:id="@+id/check_location"
@@ -26,7 +29,10 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="@string/check_location"
-        android:onClick="checkLocation"/>
+        android:onClick="checkLocation"
+        android:background="@drawable/button_drawable"
+	    android:textColor="@color/dialog_background_stroke_color"
+	    android:textStyle="bold"/>
     
     <Button 
         android:id="@+id/show_hint"
@@ -35,7 +41,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:text="@string/show_hint"
-        android:onClick="showHint"/>
+        android:onClick="showHint"
+        android:background="@drawable/button_drawable"
+	    android:textColor="@color/dialog_background_stroke_color"
+	    android:textStyle="bold"/>
     
     <RelativeLayout 
         android:id="@+id/shadow_layout"
@@ -81,7 +90,10 @@
 	        	    android:layout_height="wrap_content"
 	        	    android:layout_centerHorizontal="true"
 	        	    android:layout_below="@id/message_enter_data"
-	        	    android:onClick="doActionDialog"/>
+	        	    android:onClick="doActionDialog"
+	        	    android:background="@drawable/button_drawable"
+	    			android:textColor="@color/dialog_background_stroke_color"
+	    			android:textStyle="bold"/>
 	        	
 	        	<Button 
 	        	    android:id="@+id/search_dialog"
@@ -89,7 +101,10 @@
 	        	    android:layout_height="wrap_content"
 	        	    android:layout_alignParentRight="true"
 	        	    android:layout_below="@id/message_enter_data"
-					android:onClick="searchInfo"/>
+					android:onClick="searchInfo"
+					android:background="@drawable/button_drawable"
+	    			android:textColor="@color/dialog_background_stroke_color"
+	    			android:textStyle="bold"/>
 	        	
 	    </RelativeLayout>
 	</RelativeLayout>
