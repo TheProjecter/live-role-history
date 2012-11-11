@@ -7,6 +7,7 @@ import net.mouluso.liverolehistory.gps.GPSReadable;
 import net.mouluso.liverolehistory.model.Event;
 import net.mouluso.liverolehistory.overlays.MyLocationOverlay;
 import net.mouluso.liverolehistory.storage.DatabaseOperations;
+import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -200,7 +201,10 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	}
 	
 	public void searchInfo(View v){
-		
+		String busqueda = event.getSearchTerms();
+		Intent search = new Intent(Intent.ACTION_WEB_SEARCH);  
+		search.putExtra(SearchManager.QUERY, busqueda);  
+		startActivity(search);  
 	}
 	
 	private void enableMapButtons(boolean enabled){
