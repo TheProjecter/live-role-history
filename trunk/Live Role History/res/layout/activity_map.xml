@@ -8,8 +8,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:clickable="true"
-        android:apiKey="0ezukej2Pytifv1UCDljsVZjPylDswASglStsyA"/> <!-- CLAVE DE LUSO -->
-	    <!--android:apiKey="0E9FUlCNBNxYsVS5nDUf0CuPbfMkE_-6b2uw7YA"/>--><!-- CLAVE DE MOU -->
+	    android:apiKey="0E9FUlCNBNxYsVS5nDUf0CuPbfMkE_-6b2uw7YA"/>
     
     <Button 
         android:id="@+id/locate_me"
