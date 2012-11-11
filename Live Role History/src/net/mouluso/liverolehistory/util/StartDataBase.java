@@ -82,7 +82,7 @@ public class StartDataBase {
     				"6",
     				"Centro comercial centro coruña",
     				"Atopeino! Se isto non consegue salvarme o pescozo, nada o fará. En fin, que sexa o que Deus queira. Tomarei outra cervexa, por se acaso.", 
-    				43368113,-840039);
+    				43367856,-8400315);
     		
     		
     		
@@ -159,7 +159,7 @@ public class StartDataBase {
     				2,
     				8,
     				"Como se chamaba o petroleiro que naufragou non moi lonxe de aquí en 1992?",
-    				"xerión norte coruña ",
+    				"Mar Egeo",
     				"Rosa dos Ventos da Torre de Hércules, A Coruña",
     				"Con todas as marabillas e cousas abraiantes que vin, resulta impresionante que unha Rosa dos Ventos non caera no olvido.", 
     				43386698,-8407727);
