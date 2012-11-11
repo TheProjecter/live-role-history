@@ -53,7 +53,7 @@ public class DatabaseOperations {
 	}
 	
 	
-	public void insertEvent(String description, int historyId,  int order, String question, String answer, int search, String success,
+	public void insertEvent(String description, int historyId,  int order, String question, String answer, String search, String success,
 			int latitude, int longitude){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getWritableDatabase();
