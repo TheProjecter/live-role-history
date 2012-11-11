@@ -29,7 +29,9 @@ public class HistoryArrayAdapter extends ArrayAdapter<History> {
 	    View rowView = inflater.inflate(R.layout.historyadapter, parent, false);
 	    TextView textView = (TextView) rowView.findViewById(R.id.historyadapter_label);
 	    ImageView imageView = (ImageView) rowView.findViewById(R.id.historyadapter_icon);
+	    TextView description = (TextView) rowView.findViewById(R.id.description_label);
 	    textView.setText(values.get(position).getName());
+	    description.setText(values.get(position).getDescription());
 	    
 	    imageView.setImageResource(context.getResources().getIdentifier(values.get(position).getImage(),
 	    		"drawable", context.getPackageName()));
