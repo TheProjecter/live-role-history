@@ -2,14 +2,14 @@ package net.mouluso.liverolehistory.storage;
 
 import java.util.ArrayList;
 
+import net.mouluso.liverolehistory.model.Event;
 import net.mouluso.liverolehistory.model.History;
 import net.mouluso.liverolehistory.storage.constants.StorageConstants;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.google.android.maps.GeoPoint;
+import android.location.Location;
 
 public class DatabaseOperations {
 	private Context context;
@@ -53,6 +53,29 @@ public class DatabaseOperations {
 	}
 	
 	
+	public void insertEvent(String description, int historyId,  int order, String question, String answer, int search,
+			int latitude, int longitude){
+		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
+		SQLiteDatabase db = dbh.getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(StorageConstants.DESCRIPTION, description);
+		cv.put(StorageConstants.HISTORY_ID, historyId);
+		cv.put(StorageConstants.ORDER, order);
+		cv.put(StorageConstants.LATITUDE, latitude);
+		cv.put(StorageConstants.LONGITUDE, longitude);
+		cv.put(StorageConstants.SEARCH, search);
+		cv.put(StorageConstants.QUESTION, question);
+		cv.put(StorageConstants.ANSWER, answer);
+		
+		
+		db.insert(StorageConstants.EVENTS_TABLE, null, cv);
+		
+		db.close();
+		dbh.close();
+	}
+	
+	
 	public ArrayList<History> getHistoryList(){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getReadableDatabase();
@@ -75,6 +98,35 @@ public class DatabaseOperations {
 		dbh.close();
 		
 		return historys;
+	}
+	
+	
+	public Event getEvent(int historyId, int order){
+		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
+		SQLiteDatabase db = dbh.getReadableDatabase();
+		
+		Cursor c = db.query(StorageConstants.EVENTS_TABLE, null, null, null, null, null, null);
+		
+		Event e = null;
+		
+		if(c.moveToFirst()){
+			int id = c.getInt(c.getColumnIndex(StorageConstants.ID));
+			String description = c.getString(c.getColumnIndex(StorageConstants.DESCRIPTION));
+			String question = c.getString(c.getColumnIndex(StorageConstants.QUESTION));
+			String answer = c.getString(c.getColumnIndex(StorageConstants.ANSWER));
+			String searchTerms = c.getString(c.getColumnIndex(StorageConstants.SEARCH));
+			int lat = c.getInt(c.getColumnIndex(StorageConstants.LATITUDE));
+			int lon = c.getInt(c.getColumnIndex(StorageConstants.LONGITUDE));
+			Location location = new Location("DataBase");
+			location.setLatitude(lat);
+			location.setLongitude(lon);
+			e = new Event(description, question, answer, searchTerms, order, location);
+		}
+		
+		db.close();
+		dbh.close();
+		
+		return e;
 	}
 	
 }
