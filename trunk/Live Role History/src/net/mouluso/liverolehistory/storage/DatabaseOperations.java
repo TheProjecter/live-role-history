@@ -46,6 +46,9 @@ public class DatabaseOperations {
 		cv.put(StorageConstants.IMAGE, image);
 		
 		db.insert(StorageConstants.HISTORY_TABLE, null, cv);
+		
+		db.close();
+		dbh.close();
 	}
 	
 	

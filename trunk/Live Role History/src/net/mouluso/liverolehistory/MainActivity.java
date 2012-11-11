@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
     }
     
     public void play(View v){
-    	Intent i = new Intent(this.getApplicationContext(), MapRoleActivity.class);
+    	Intent i = new Intent(this.getApplicationContext(), ListViewHistories.class);
     	startActivity(i);
     }
 }
