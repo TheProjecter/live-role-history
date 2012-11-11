@@ -53,7 +53,7 @@ public class DatabaseOperations {
 	}
 	
 	
-	public void insertEvent(String description, int historyId,  int order, String question, String answer, int search,
+	public void insertEvent(String description, int historyId,  int order, String question, String answer, int search, String success,
 			int latitude, int longitude){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getWritableDatabase();
@@ -67,6 +67,7 @@ public class DatabaseOperations {
 		cv.put(StorageConstants.SEARCH, search);
 		cv.put(StorageConstants.QUESTION, question);
 		cv.put(StorageConstants.ANSWER, answer);
+		cv.put(StorageConstants.SUCCESS, success);
 		
 		
 		db.insert(StorageConstants.EVENTS_TABLE, null, cv);
@@ -110,17 +111,17 @@ public class DatabaseOperations {
 		Event e = null;
 		
 		if(c.moveToFirst()){
-			int id = c.getInt(c.getColumnIndex(StorageConstants.ID));
 			String description = c.getString(c.getColumnIndex(StorageConstants.DESCRIPTION));
 			String question = c.getString(c.getColumnIndex(StorageConstants.QUESTION));
 			String answer = c.getString(c.getColumnIndex(StorageConstants.ANSWER));
 			String searchTerms = c.getString(c.getColumnIndex(StorageConstants.SEARCH));
+			String success = c.getString(c.getColumnIndex(StorageConstants.SUCCESS));
 			int lat = c.getInt(c.getColumnIndex(StorageConstants.LATITUDE));
 			int lon = c.getInt(c.getColumnIndex(StorageConstants.LONGITUDE));
 			Location location = new Location("DataBase");
 			location.setLatitude(lat);
 			location.setLongitude(lon);
-			e = new Event(description, question, answer, searchTerms, order, location);
+			e = new Event(description, question, answer, searchTerms, success, order, location);
 		}
 		
 		db.close();

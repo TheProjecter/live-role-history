@@ -19,6 +19,7 @@ public class StorageConstants {
 	public static final String SEARCH = "search";
 	public static final String LATITUDE = "Latitude";
 	public static final String LONGITUDE = "Longitude";
+	public static final String SUCCESS = "Success";
 
 	public static final String CREATE_HISTORY_TABLE = 
 			"CREATE TABLE " + HISTORY_TABLE + "(" + 
@@ -37,6 +38,7 @@ public class StorageConstants {
 					QUESTION + " INTEGER NOT NULL," +
 					ANSWER + " INTEGER NOT NULL," +
 					SEARCH + " TEXT NOT NULL," +
+					SUCCESS + "TEXT NOT NULL," + 
 					LATITUDE + " INTEGER NOT NULL," +
 					LONGITUDE + " INTEGER NOT NULL);"					
 					;
