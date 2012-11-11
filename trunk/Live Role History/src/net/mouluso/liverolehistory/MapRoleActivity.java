@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,6 +53,7 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	private Event event;
 	private boolean changeEvent = false;
 	private boolean endOfGame = false;
+	private boolean badAnswer = false;
 	
 	
 	@Override
@@ -101,7 +101,6 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		int order = 1;
 		changeEvent = false;
 		if(event != null) order = event.getOrder() + 1;
-		Log.d("Event", order+"");
 		event = DatabaseOperations.getInstance(getApplicationContext()).getEvent(historyPlayed, order);
 		if(event!=null)
 			showDialog();
@@ -174,6 +173,9 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 			if(endOfGame){
 				shareGPlus();
 				finish();
+			}else if(badAnswer){
+				badAnswer = false;
+				checkIn();
 			}else{
 				enableMapButtons(true); 
 				shadow.setVisibility(RelativeLayout.INVISIBLE);
@@ -192,6 +194,11 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		
 		if(answer.equals(event.getAnswer().toString().toUpperCase())){
 			showSuccess();
+		}else{
+			badAnswer = true;
+			configMessageDialog("Estaste equivocando, rapaz... téntao de novo", false);
+			enableMapButtons(false);
+			shadow.setVisibility(RelativeLayout.VISIBLE);
 		}
 	}
 	
@@ -204,7 +211,7 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		String busqueda = event.getSearchTerms();
 		Intent search = new Intent(Intent.ACTION_WEB_SEARCH);  
 		search.putExtra(SearchManager.QUERY, busqueda);  
-		startActivity(search);  
+		startActivity(search); 
 	}
 	
 	private void enableMapButtons(boolean enabled){
@@ -248,7 +255,6 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	
 	
 	private void GameOver(){
-		Log.d("HOOOLA", "PaTATOLLA");
 		endOfGame = true;
 		configMessageDialog("Noraboa! Remataches a partida!", false);
 		enableMapButtons(false);
