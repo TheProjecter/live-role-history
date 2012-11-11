@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.mouluso.liverolehistory.gps.GPSListener;
 import net.mouluso.liverolehistory.gps.GPSReadable;
+import net.mouluso.liverolehistory.model.Event;
 import net.mouluso.liverolehistory.overlays.MyLocationOverlay;
 import net.mouluso.liverolehistory.storage.DatabaseOperations;
 import android.content.Intent;
@@ -11,7 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
-import android.view.Menu;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,6 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	private MapView mv;
 	private Location location;
 	private GPSListener gpsListener;
-	private GeoPoint locationToLocate;
 	private MyLocationOverlay markOverlay;
 	private OverlayItem mark;
 	private RelativeLayout shadow;
@@ -47,8 +47,12 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	private Button actionMessageButton;
 	private Button searchInfoMessageButton;
 	
-    
 	private int messageType;
+	private int historyPlayed;
+	private Event event;
+	private boolean changeEvent = false;
+	
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +61,6 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
         mv.setSatellite(true);
         mv.getController().setZoom(20);
         this.gpsListener = new GPSListener(getApplicationContext(), this);
-
-        locationToLocate = new GeoPoint(45367824, 8908765);
         
         
         List<Overlay> mapOverlays = mv.getOverlays();
@@ -79,12 +81,10 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
     	
     	actionMessageButton = (Button) findViewById(R.id.action_dialog);
     	searchInfoMessageButton = (Button) findViewById(R.id.search_dialog);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
+    	
+    	historyPlayed = getIntent().getIntExtra("history", 0);
+    	
+    	playEvent();
     }
 
 	@Override
@@ -92,6 +92,15 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
+	private void playEvent(){
+		int order = 1;
+		if(event != null) order = event.getOrder() + 1;
+		event = DatabaseOperations.getInstance(getApplicationContext()).getEvent(historyPlayed, order);
+		showDialog();
+	}
+	
 	
 	public void locateMe(View v){
 		if(this.location != null){
@@ -115,33 +124,66 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 
 	public void checkLocation(View v){
 		if(this.location==null) return;
-		Location loc =  new Location("Database");
-		loc.setLatitude(locationToLocate.getLatitudeE6() / 1E6);
-		loc.setLongitude(locationToLocate.getLongitudeE6() / 1E6);
-		
+		Location loc =  event.getLocation();
 		
 		float distance = loc.distanceTo(this.location);
+		int dist = (int)(distance * 100);
+		distance = (float)(dist / 100.0);
+		
+		Log.d("asdasd", loc.getLatitude()+"");
+		Log.d("asdasd", loc.getLongitude()+"");
+		Log.d("asdasd", location.getLatitude()+"");
+		Log.d("asdasd", location.getLongitude()+"");
+		
 		
 		if(distance < 5){
-			Toast.makeText(getApplicationContext(), "WIN", Toast.LENGTH_SHORT).show();
+			checkIn();
 		}else{
-			Toast.makeText(getApplicationContext(), "Te faltan: " + distance + " metros", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Faltanche: " + distance + " metros", Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	public void showHint(View v){
-		//configMessageDialog();
-		configEnterDataDialog("TEST");
+		showDialog();
+	}
+	
+	public void checkIn(){
+		configEnterDataDialog(event.getQuestion());
+		enableMapButtons(false);
+		shadow.setVisibility(RelativeLayout.VISIBLE);
+	}
+	
+	public void showDialog(){
+		configMessageDialog(event.getDescription());
 		enableMapButtons(false);
 		shadow.setVisibility(RelativeLayout.VISIBLE);
 	}
 	
 	public void doActionDialog(View v){
 		switch(messageType){
-		case MESSAGE_DIALOG: enableMapButtons(true); shadow.setVisibility(RelativeLayout.INVISIBLE); break;
-		case ENTER_DATA_DIALOG: break;
+		case MESSAGE_DIALOG: 
+			enableMapButtons(true); 
+			shadow.setVisibility(RelativeLayout.INVISIBLE);
+			if(changeEvent) playEvent();
+			break;
+		case ENTER_DATA_DIALOG: 
+			checkData(); 
+			break;
 		}
 			
+	}
+	
+	private void checkData(){
+		String answer = dialogEnterData.getText().toString().trim().toUpperCase();
+		
+		if(answer.equals(event.getAnswer().toString())){
+			showSuccess();
+		}
+	}
+	
+	private void showSuccess(){
+		configMessageDialog(event.getSuccess());
+		changeEvent = true;
 	}
 	
 	public void searchInfo(View v){

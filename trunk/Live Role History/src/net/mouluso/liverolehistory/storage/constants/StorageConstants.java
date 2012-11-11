@@ -38,7 +38,7 @@ public class StorageConstants {
 					QUESTION + " INTEGER NOT NULL," +
 					ANSWER + " INTEGER NOT NULL," +
 					SEARCH + " TEXT NOT NULL," +
-					SUCCESS + "TEXT NOT NULL," + 
+					SUCCESS + " TEXT NOT NULL," + 
 					LATITUDE + " INTEGER NOT NULL," +
 					LONGITUDE + " INTEGER NOT NULL);"					
 					;

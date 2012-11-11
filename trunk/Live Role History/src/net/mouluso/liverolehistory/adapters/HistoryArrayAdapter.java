@@ -34,6 +34,7 @@ public class HistoryArrayAdapter extends ArrayAdapter<History> {
 	    imageView.setImageResource(context.getResources().getIdentifier(values.get(position).getImage(),
 	    		"drawable", context.getPackageName()));
 	    
+	    rowView.setTag(new Integer(values.get(position).getId()));
 	    return rowView;
 	  }
 }
