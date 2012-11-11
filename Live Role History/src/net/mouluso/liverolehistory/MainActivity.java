@@ -20,5 +20,7 @@ public class MainActivity extends Activity {
     public void play(View v){
     	Intent i = new Intent(this.getApplicationContext(), ListViewHistories.class);
     	startActivity(i);
+    	overridePendingTransition(R.anim.alpha_animation_in, R.anim.alpha_animation_out);
+    	
     }
 }
