@@ -7,6 +7,7 @@ public class StorageConstants {
 	
 	public static final String HISTORY_TABLE = "Historys";
 	public static final String EVENTS_TABLE = "Events";
+	public static final String GAMES_TABLE = "Games";
 	public static final String ID = "_id";
 	public static final String NAME = "Name";
 	public static final String DESCRIPTION = "Description";
@@ -20,6 +21,7 @@ public class StorageConstants {
 	public static final String LATITUDE = "Latitude";
 	public static final String LONGITUDE = "Longitude";
 	public static final String SUCCESS = "Success";
+	public static final String EVENT_ID = "EventId";
 
 	public static final String CREATE_HISTORY_TABLE = 
 			"CREATE TABLE " + HISTORY_TABLE + "(" + 
@@ -41,6 +43,13 @@ public class StorageConstants {
 					SUCCESS + " TEXT NOT NULL," + 
 					LATITUDE + " INTEGER NOT NULL," +
 					LONGITUDE + " INTEGER NOT NULL);"					
+					;
+	
+	
+	public static final String CREATE_GAMES_TABLE =
+			"CREATE TABLE " + GAMES_TABLE + "(" +
+					HISTORY_ID + " INTEGER NOT NULL," +
+					EVENT_ID + " INTEGER NOT NULL);"					
 					;
 	
 }

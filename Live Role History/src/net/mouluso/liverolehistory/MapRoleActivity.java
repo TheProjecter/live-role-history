@@ -87,7 +87,10 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
     	
     	historyPlayed = getIntent().getIntExtra("history", 0);
     	
-    	playEvent();
+    	event = DatabaseOperations.getInstance(getApplicationContext()).getEvent(historyPlayed, 
+    			getIntent().getIntExtra("event", 0));
+    	
+    	if(event == null) playEvent();
     }
 
 	@Override
@@ -102,10 +105,13 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		changeEvent = false;
 		if(event != null) order = event.getOrder() + 1;
 		event = DatabaseOperations.getInstance(getApplicationContext()).getEvent(historyPlayed, order);
+		DatabaseOperations.getInstance(getApplicationContext()).saveGame(historyPlayed, order);
 		if(event!=null)
 			showDialog();
-		else
+		else {
 			GameOver();
+			DatabaseOperations.getInstance(getApplicationContext()).deleteGame(historyPlayed);
+		}
 	}
 	
 	
