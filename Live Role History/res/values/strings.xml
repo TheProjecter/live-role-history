@@ -2,18 +2,16 @@
 
     <string name="app_name">Live Role History</string>
     <string name="menu_settings">Settings</string>
-    
     <string name="title_activity_main">Live Role History</string>
-   	<string name="title_activity_map">Mapa da Historia</string>
-    
+    <string name="title_activity_map">Mapa da Historia</string>
     <string name="play_button">Xogar</string>
-    
     <string name="locate_me">Localízame</string>
     <string name="check_location">Comprobame</string>
     <string name="show_hint">Recórdame</string>
-    
     <string name="close_action">Pechar</string>
     <string name="enter_data_action">¡Toma resposta!</string>
     <string name="search_info">Buscar</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_list_view_histories">ListViewHistories</string>
 
 </resources>

@@ -20,7 +20,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(StorageConstants.CREATE_LOCATION_TABLE);
 		db.execSQL(StorageConstants.CREATE_HISTORY_TABLE);
 		
-		DatabaseOperations.getInstance(context);
+		DatabaseOperations.getInstance(context).insertHistory("O Alemán resacoso.",
+				"Axuda a un turista alemán a recupera-las súas cousas namentres disfruta de A Coruña.", 
+				"beer_icon.png");
+		DatabaseOperations.getInstance(context).insertHistory("O Pelegrín", 
+				"Un pelegrín perdido no tempo que tenta volver á casa namentres coñece o ámbito cultural de A Coruña.", 
+				"vieira_icon.jpg");
 
 	}
 
