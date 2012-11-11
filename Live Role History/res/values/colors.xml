@@ -4,5 +4,6 @@
     <color name="dialog_background_color">#AAA65200</color>
     <color name="dialog_background_color2">#AA753B00</color>
     <color name="dialog_background_stroke_color">#DDDDDD</color>
+    <color name="text_color">#FFFFFF</color>
     
 </resources>

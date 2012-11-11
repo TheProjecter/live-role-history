@@ -131,7 +131,7 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	
 	public void showHint(View v){
 		//configMessageDialog();
-		configEnterDataDialog();
+		configEnterDataDialog("TEST");
 		enableMapButtons(false);
 		shadow.setVisibility(RelativeLayout.VISIBLE);
 	}
@@ -154,7 +154,7 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		showHintButton.setEnabled(enabled);
 	}
 	
-	private void configMessageDialog(){
+	private void configMessageDialog(String message){
 		dialogIcon.setVisibility(RelativeLayout.VISIBLE);
 		dialogMessage.setVisibility(RelativeLayout.VISIBLE);
 		actionMessageButton.setVisibility(RelativeLayout.VISIBLE);
@@ -165,9 +165,11 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		
 		actionMessageButton.setText(R.string.close_action);
 		searchInfoMessageButton.setText(R.string.search_info);
+		
+		dialogMessage.setText(message);
 	}
 	
-	private void configEnterDataDialog(){
+	private void configEnterDataDialog(String message){
 		dialogIcon.setVisibility(RelativeLayout.VISIBLE);
 		dialogMessage.setVisibility(RelativeLayout.VISIBLE);
 		actionMessageButton.setVisibility(RelativeLayout.VISIBLE);
@@ -177,6 +179,8 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		messageType = ENTER_DATA_DIALOG;
 		
 		actionMessageButton.setText(R.string.enter_data_action);
+		
+		dialogMessage.setText(message);
 	}
 	
 	

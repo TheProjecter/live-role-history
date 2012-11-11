@@ -8,24 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
-	Context context;
 	public DatabaseOpenHelper(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);
-		this.context = context;
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(StorageConstants.CREATE_LOCATION_TABLE);
 		db.execSQL(StorageConstants.CREATE_HISTORY_TABLE);
-		
-		DatabaseOperations.getInstance(context).insertHistory("O Alemán resacoso.",
-				"Axuda a un turista alemán a recupera-las súas cousas namentres disfruta de A Coruña.", 
-				"beer_icon.png");
-		DatabaseOperations.getInstance(context).insertHistory("O Pelegrín", 
-				"Un pelegrín perdido no tempo que tenta volver á casa namentres coñece o ámbito cultural de A Coruña.", 
-				"vieira_icon.jpg");
 
 	}
 
