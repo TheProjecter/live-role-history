@@ -102,11 +102,33 @@ public class DatabaseOperations {
 	}
 	
 	
+	public String getHistorName(int id){
+		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
+		SQLiteDatabase db = dbh.getReadableDatabase();
+		
+		Cursor c = db.query(StorageConstants.HISTORY_TABLE, null, 
+				StorageConstants.ID + "= ?", new String[]{id+""}, null, null, null);
+		
+		String name = null;
+		
+		if(c.moveToFirst()){
+			name = c.getString(c.getColumnIndex(StorageConstants.NAME));
+			
+		}
+		
+		db.close();
+		dbh.close();
+		
+		return name;
+	}
+	
 	public Event getEvent(int historyId, int order){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getReadableDatabase();
 		
-		Cursor c = db.query(StorageConstants.EVENTS_TABLE, null, null, null, null, null, null);
+		Cursor c = db.query(StorageConstants.EVENTS_TABLE, null, 
+				StorageConstants.HISTORY_ID + " = ? AND " + StorageConstants.ORDER + " = ?", 
+				new String[]{historyId+"", order+""}, null, null, null);
 		
 		Event e = null;
 		

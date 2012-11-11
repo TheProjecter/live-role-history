@@ -7,6 +7,7 @@ import net.mouluso.liverolehistory.gps.GPSReadable;
 import net.mouluso.liverolehistory.model.Event;
 import net.mouluso.liverolehistory.overlays.MyLocationOverlay;
 import net.mouluso.liverolehistory.storage.DatabaseOperations;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -51,6 +52,7 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	private int historyPlayed;
 	private Event event;
 	private boolean changeEvent = false;
+	private boolean endOfGame = false;
 	
 	
 	@Override
@@ -96,9 +98,14 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	
 	private void playEvent(){
 		int order = 1;
+		changeEvent = false;
 		if(event != null) order = event.getOrder() + 1;
+		Log.d("Event", order+"");
 		event = DatabaseOperations.getInstance(getApplicationContext()).getEvent(historyPlayed, order);
-		showDialog();
+		if(event!=null)
+			showDialog();
+		else
+			GameOver();
 	}
 	
 	
@@ -113,13 +120,19 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		mv.invalidate();
 	}
 	
-	public void shareGPlus(View v){
+	public void shareGPlus(){
 		Intent shareIntent = ShareCompat.IntentBuilder.from(MapRoleActivity.this)
-				.setText("TEXTO A PUBLICAR")
+				.setText("Acabo de rematar a historia <<" + 
+						DatabaseOperations.getInstance(getApplicationContext()).getHistorName(historyPlayed)
+						+ ">> de Live Role History App")
 				.setType("text/plain")
 				.getIntent()
 				.setPackage("com.google.android.apps.plus");
-		startActivity(shareIntent);
+		try{
+			startActivity(shareIntent);
+		}catch(ActivityNotFoundException anfe){
+			
+		}
 	}
 
 	public void checkLocation(View v){
@@ -130,13 +143,8 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		int dist = (int)(distance * 100);
 		distance = (float)(dist / 100.0);
 		
-		Log.d("asdasd", loc.getLatitude()+"");
-		Log.d("asdasd", loc.getLongitude()+"");
-		Log.d("asdasd", location.getLatitude()+"");
-		Log.d("asdasd", location.getLongitude()+"");
 		
-		
-		if(distance < 5){
+		if(distance < 20){
 			checkIn();
 		}else{
 			Toast.makeText(getApplicationContext(), "Faltanche: " + distance + " metros", Toast.LENGTH_LONG).show();
@@ -154,17 +162,22 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	}
 	
 	public void showDialog(){
-		configMessageDialog(event.getDescription());
+		configMessageDialog(event.getDescription(), true);
 		enableMapButtons(false);
 		shadow.setVisibility(RelativeLayout.VISIBLE);
 	}
 	
 	public void doActionDialog(View v){
 		switch(messageType){
-		case MESSAGE_DIALOG: 
-			enableMapButtons(true); 
-			shadow.setVisibility(RelativeLayout.INVISIBLE);
-			if(changeEvent) playEvent();
+		case MESSAGE_DIALOG:
+			if(endOfGame){
+				shareGPlus();
+				finish();
+			}else{
+				enableMapButtons(true); 
+				shadow.setVisibility(RelativeLayout.INVISIBLE);
+				if(changeEvent) playEvent();
+			}
 			break;
 		case ENTER_DATA_DIALOG: 
 			checkData(); 
@@ -176,13 +189,13 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 	private void checkData(){
 		String answer = dialogEnterData.getText().toString().trim().toUpperCase();
 		
-		if(answer.equals(event.getAnswer().toString())){
+		if(answer.equals(event.getAnswer().toString().toUpperCase())){
 			showSuccess();
 		}
 	}
 	
 	private void showSuccess(){
-		configMessageDialog(event.getSuccess());
+		configMessageDialog(event.getSuccess(), false);
 		changeEvent = true;
 	}
 	
@@ -196,11 +209,14 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		showHintButton.setEnabled(enabled);
 	}
 	
-	private void configMessageDialog(String message){
+	private void configMessageDialog(String message, boolean searchButton){
 		dialogIcon.setVisibility(RelativeLayout.VISIBLE);
 		dialogMessage.setVisibility(RelativeLayout.VISIBLE);
 		actionMessageButton.setVisibility(RelativeLayout.VISIBLE);
-		searchInfoMessageButton.setVisibility(RelativeLayout.VISIBLE);
+		if(searchButton)
+			searchInfoMessageButton.setVisibility(RelativeLayout.VISIBLE);
+		else
+			searchInfoMessageButton.setVisibility(RelativeLayout.INVISIBLE);
 		
 		dialogEnterData.setVisibility(RelativeLayout.INVISIBLE);
 		messageType = MESSAGE_DIALOG;
@@ -216,6 +232,7 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		dialogMessage.setVisibility(RelativeLayout.VISIBLE);
 		actionMessageButton.setVisibility(RelativeLayout.VISIBLE);
 		dialogEnterData.setVisibility(RelativeLayout.VISIBLE);
+		dialogEnterData.setText("");
 		
 		searchInfoMessageButton.setVisibility(RelativeLayout.INVISIBLE);
 		messageType = ENTER_DATA_DIALOG;
@@ -223,6 +240,15 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		actionMessageButton.setText(R.string.enter_data_action);
 		
 		dialogMessage.setText(message);
+	}
+	
+	
+	private void GameOver(){
+		Log.d("HOOOLA", "PaTATOLLA");
+		endOfGame = true;
+		configMessageDialog("Noraboa! Remataches a partida!", false);
+		enableMapButtons(false);
+		shadow.setVisibility(RelativeLayout.VISIBLE);
 	}
 	
 	
