@@ -2,7 +2,7 @@
 
     <string name="app_name">Live Role History</string>
     <string name="menu_settings">Opcións</string>
-    <string name="title_activity_main">Benvido!</string>
+    <string name="title_activity_main">Live Role History</string>
     <string name="title_activity_map"></string>
     <string name="play_button">Xogar</string>
     <string name="locate_me">Localízame</string>
@@ -13,5 +13,9 @@
     <string name="search_info">Buscar</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_list_view_histories">Escolle unha historia:</string>
+    <string name="load_warning">De esta historia xa tes unha partida previa comezada. ¿Queres continuala ou comezar unha nova?</string>
+    <string name="continue_game">Continuar</string>
+    <string name="new_game">Novo Xogo</string>
+    <string name="go_back">Volver</string>
 
 </resources>

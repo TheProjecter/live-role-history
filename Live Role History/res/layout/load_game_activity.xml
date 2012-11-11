@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/bg_menu">
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:background="@drawable/dialog_drawable"
+        android:layout_margin="5dp">
+        
+    
+	    <TextView 
+	        android:id="@+id/info_load"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/load_warning"
+	        android:textColor="@color/dialog_background_stroke_color"
+		    android:textStyle="bold"
+		    android:layout_marginBottom="15dp"/>
+	    
+	    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+		    <Button
+			    android:id="@+id/go_back"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:onClick="goBack"
+			    android:text="@string/go_back"
+			    android:background="@drawable/button_drawable"
+			    android:textColor="@color/dialog_background_stroke_color"
+			    android:textStyle="bold"
+			    android:layout_weight="1"/>
+		    <Button
+			    android:id="@+id/continue_game"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:onClick="continueGame"
+			    android:text="@string/continue_game"
+			    android:background="@drawable/button_drawable"
+			    android:textColor="@color/dialog_background_stroke_color"
+			    android:textStyle="bold"
+			    android:layout_weight="1"/>
+		    <Button
+			    android:id="@+id/new_game"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:onClick="newGame"
+			    android:text="@string/new_game"
+			    android:background="@drawable/button_drawable"
+			    android:textColor="@color/dialog_background_stroke_color"
+			    android:textStyle="bold"
+			    android:layout_weight="1"/>
+    	</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
