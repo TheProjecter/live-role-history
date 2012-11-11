@@ -16,6 +16,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(StorageConstants.CREATE_HISTORY_TABLE);
+		db.execSQL(StorageConstants.CREATE_EVENTS_TABLE);
 
 	}
 

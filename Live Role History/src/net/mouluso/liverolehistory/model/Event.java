@@ -12,7 +12,7 @@ public class Event {
 	private Location location;
 	
 	public Event(String description, String question, 
-			String answer, String searchTerms, String sucess, int order,Location location) {
+			String answer, String searchTerms, String success, int order,Location location) {
 		this.description = description;
 		this.question = question;
 		this.answer = answer;

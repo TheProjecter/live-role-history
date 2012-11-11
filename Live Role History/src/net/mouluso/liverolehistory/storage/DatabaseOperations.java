@@ -119,8 +119,10 @@ public class DatabaseOperations {
 			int lat = c.getInt(c.getColumnIndex(StorageConstants.LATITUDE));
 			int lon = c.getInt(c.getColumnIndex(StorageConstants.LONGITUDE));
 			Location location = new Location("DataBase");
-			location.setLatitude(lat);
-			location.setLongitude(lon);
+			double latitude = (double)lat / 1E6;
+			double longitude = (double)lon / 1E6;
+			location.setLatitude(latitude);
+			location.setLongitude(longitude);
 			e = new Event(description, question, answer, searchTerms, success, order, location);
 		}
 		
