@@ -8,6 +8,7 @@ import net.mouluso.liverolehistory.storage.DatabaseOperations;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -41,6 +42,18 @@ public class ListViewHistories extends ListActivity implements OnItemClickListen
 			i.putExtra("history", history);
 			startActivity(i);
 		}
+		
+		overridePendingTransition(R.anim.alpha_animation_in, R.anim.alpha_animation_out);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	finish();
+	    	overridePendingTransition(R.anim.alpha_animation_in, R.anim.alpha_animation_out);
+	    	return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 
 }

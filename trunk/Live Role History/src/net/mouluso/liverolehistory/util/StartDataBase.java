@@ -171,7 +171,7 @@ public class StartDataBase {
     				"68",
     				"Torre de Hércules",
     				"Xuntei todas as notas e parece que todo cobra sentido... Creo que a pesar de todo, voltarei á casa.", 
-    				4338569,-8406633);
+    				43385869,-8406633);
         
         }
 }}

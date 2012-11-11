@@ -14,7 +14,10 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -165,12 +168,16 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		configEnterDataDialog(event.getQuestion());
 		enableMapButtons(false);
 		shadow.setVisibility(RelativeLayout.VISIBLE);
+		Animation inAnim = AnimationUtils.loadAnimation(this, R.anim.scale_animation_in);
+		shadow.startAnimation(inAnim);
 	}
 	
 	public void showDialog(){
 		configMessageDialog(event.getDescription(), true);
 		enableMapButtons(false);
 		shadow.setVisibility(RelativeLayout.VISIBLE);
+		Animation inAnim = AnimationUtils.loadAnimation(this, R.anim.scale_animation_in);
+		shadow.startAnimation(inAnim);
 	}
 	
 	public void doActionDialog(View v){
@@ -179,12 +186,15 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 			if(endOfGame){
 				shareGPlus();
 				finish();
+				overridePendingTransition(R.anim.alpha_animation_in, R.anim.alpha_animation_out);
 			}else if(badAnswer){
 				badAnswer = false;
 				checkIn();
 			}else{
 				enableMapButtons(true); 
 				shadow.setVisibility(RelativeLayout.INVISIBLE);
+				Animation inAnim = AnimationUtils.loadAnimation(this, R.anim.scale_animation_out);
+				shadow.startAnimation(inAnim);
 				if(changeEvent) playEvent();
 			}
 			break;
@@ -205,6 +215,8 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 			configMessageDialog("Estaste equivocando, rapaz... téntao de novo", false);
 			enableMapButtons(false);
 			shadow.setVisibility(RelativeLayout.VISIBLE);
+			Animation inAnim = AnimationUtils.loadAnimation(this, R.anim.scale_animation_in);
+			shadow.startAnimation(inAnim);
 		}
 	}
 	
@@ -265,10 +277,22 @@ public class MapRoleActivity extends MapActivity implements GPSReadable{
 		configMessageDialog("Noraboa! Remataches a partida!", false);
 		enableMapButtons(false);
 		shadow.setVisibility(RelativeLayout.VISIBLE);
+		Animation inAnim = AnimationUtils.loadAnimation(this, R.anim.scale_animation_in);
+		shadow.startAnimation(inAnim);
 	}
 	
 	
 	public void setLocation(Location l) {
 		this.location = l;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	finish();
+	    	overridePendingTransition(R.anim.alpha_animation_in, R.anim.alpha_animation_out);
+	    	return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }
