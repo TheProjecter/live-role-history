@@ -36,11 +36,12 @@ public class DatabaseOperations {
 	}
 	
 	
-	public void insertHistory(String name, String description, String image){
+	public void insertHistory(int id, String name, String description, String image){
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
+		cv.put(StorageConstants.ID, id);
 		cv.put(StorageConstants.NAME, name);
 		cv.put(StorageConstants.DESCRIPTION, description);
 		cv.put(StorageConstants.IMAGE, image);
@@ -56,9 +57,7 @@ public class DatabaseOperations {
 		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
 		SQLiteDatabase db = dbh.getReadableDatabase();
 		
-		Cursor c = db.query(StorageConstants.HISTORY_TABLE, 
-				new String[]{StorageConstants.ID, StorageConstants.NAME, StorageConstants.DESCRIPTION, 
-				StorageConstants.IMAGE}, null, null, null, null, null);
+		Cursor c = db.query(StorageConstants.HISTORY_TABLE, null, null, null, null, null, null);
 		
 		ArrayList<History> historys = new ArrayList<History>();
 		
