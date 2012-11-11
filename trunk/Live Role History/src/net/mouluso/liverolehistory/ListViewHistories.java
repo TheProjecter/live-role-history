@@ -29,9 +29,18 @@ public class ListViewHistories extends ListActivity implements OnItemClickListen
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		int history = (Integer) view.getTag();
-		Intent i = new Intent(getApplicationContext(), MapRoleActivity.class);
-		i.putExtra("history", history);
-		startActivity(i);
+		int event = DatabaseOperations.getInstance(getApplicationContext()).loadGame(history);
+		
+		if(event > 0){
+			Intent i = new Intent(this.getApplicationContext(), LoadGameActivity.class);
+	    	i.putExtra("history", history);
+	    	i.putExtra("event", event);
+	    	startActivity(i);
+		}else{
+			Intent i = new Intent(getApplicationContext(), MapRoleActivity.class);
+			i.putExtra("history", history);
+			startActivity(i);
+		}
 	}
 
 }

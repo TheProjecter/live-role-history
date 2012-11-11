@@ -154,4 +154,58 @@ public class DatabaseOperations {
 		return e;
 	}
 	
+	
+	public void saveGame(int historyId, int eventId){
+		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
+		SQLiteDatabase db = dbh.getWritableDatabase();
+		
+		if(loadGame(historyId)!=0){
+			ContentValues cv = new ContentValues();
+			cv.put(StorageConstants.EVENT_ID, eventId);
+			
+			db.update(StorageConstants.GAMES_TABLE, cv, 
+					StorageConstants.HISTORY_ID + "= ?", new String[]{historyId+""});
+			
+		}else{
+			ContentValues cv = new ContentValues();
+			cv.put(StorageConstants.EVENT_ID, eventId);
+			cv.put(StorageConstants.HISTORY_ID, historyId);
+			
+			db.insert(StorageConstants.GAMES_TABLE, null, cv);
+		}
+		
+		db.close();
+		dbh.close();
+	}
+	
+	
+	public int loadGame(int historyId){
+		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
+		SQLiteDatabase db = dbh.getReadableDatabase();
+		
+		Cursor c = db.query(StorageConstants.GAMES_TABLE, null, 
+				StorageConstants.HISTORY_ID + "= ?", new String[]{historyId+""}, null, null, null);
+		
+		int event = 0;
+		
+		if(c.moveToFirst()){
+			event = c.getInt(c.getColumnIndex(StorageConstants.EVENT_ID));
+			
+		}
+		
+		db.close();
+		dbh.close();
+		
+		return event;
+	}
+	
+	
+	public void deleteGame(int historyId){
+		DatabaseOpenHelper dbh = loadDBHelper(StorageConstants.DATABASE_NAME, StorageConstants.DATABASE_VERSION);
+		SQLiteDatabase db = dbh.getWritableDatabase();
+		
+		db.delete(StorageConstants.GAMES_TABLE, StorageConstants.HISTORY_ID + "= ?", 
+				new String[]{historyId+""});
+	}
+	
 }
